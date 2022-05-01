@@ -1,8 +1,7 @@
-package ospan.sale;
-import org.springframework.data.domain.Sort;
+package ospan.sale.repository;
 import org.springframework.data.jpa.repository.Query;
-import ospan.sale.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import ospan.sale.User;
 
 import java.util.List;
 

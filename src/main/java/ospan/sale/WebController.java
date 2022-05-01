@@ -1,9 +1,11 @@
-package ospan.sale;
+package ospan.sale.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ospan.sale.User;
+import ospan.sale.repository.UserRepostitory;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class WebController {
             defaultValue="" ) String email ,@RequestParam(name="name" ,required = false,
             defaultValue="" ) String name, @RequestParam(name="surname" ,required = false,
             defaultValue="" ) String surname, Model model ){
-        List <User> users =repostitory.findAll();
+        List <ospan.sale.User> users =repostitory.findAll();
         if(!email.isEmpty()){
           //users=repostitory.findByEmailNotContaining(email);
             // users = repostitory.findByEmailContaining(email);
@@ -42,13 +44,13 @@ public class WebController {
     }
 
     @PostMapping("/adduser")
-    public String createUser(@ModelAttribute User user){
+    public String createUser(@ModelAttribute ospan.sale.User user){
         addUser(user);
         return "redirect:/";
     }
 
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, User user) {
+    public String updateUser(@PathVariable("id") long id, ospan.sale.User user) {
         updateUser(user);
         return "redirect:/";
     }
@@ -60,13 +62,13 @@ public class WebController {
     }
 
     @GetMapping("/signup")
-    public String showSignUpForm(User user) {
+    public String showSignUpForm(ospan.sale.User user) {
         return "addUser";
     }
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        User user = repostitory.getById(id);
+        ospan.sale.User user = repostitory.getById(id);
         model.addAttribute("user", user);
         return "update";
     }
@@ -75,12 +77,12 @@ public class WebController {
         repostitory.deleteById(id);
     }
 
-    private  void addUser(User newUser) {
+    private  void addUser(ospan.sale.User newUser) {
         repostitory.save(newUser);
     }
 
-    private  void updateUser(User updateUser) {
-        User  olduser =repostitory.getById(updateUser.getId());
+    private  void updateUser(ospan.sale.User updateUser) {
+        User olduser =repostitory.getById(updateUser.getId());
 
         olduser.setName(updateUser.getName());
         olduser.setSurname(updateUser.getSurname());
