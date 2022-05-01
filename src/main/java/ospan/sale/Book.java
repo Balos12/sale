@@ -1,4 +1,4 @@
-package ospan.sale.book;
+package ospan.sale;
 
 import lombok.Data;
 

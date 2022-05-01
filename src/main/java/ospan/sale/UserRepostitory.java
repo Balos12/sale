@@ -1,4 +1,4 @@
-package ospan.sale.repository;
+package ospan.sale;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ospan.sale.User;
@@ -6,21 +6,28 @@ import ospan.sale.User;
 import java.util.List;
 
 public interface UserRepostitory extends JpaRepository <User,Long> {
-    List <User> findByEmailContaining(String email);
-    List<User> findByNameStartsWith(String name);
-    List<User> findBySurnameStartsWith(String surname);
-    @Query(value = "select * from users order by name",nativeQuery = true)
-    List<User> findUsersByCustomQuery();
-    @Query(value = "SELECT * FROM ( SELECT * FROM users ORDER BY id DESC LIMIT 2 ) users",nativeQuery = true)
-    List<User> findUsersByCustom();
-    List<User> findAllByOrderByNameDesc();
-    List <User> findByEmailNotContaining(String email);
-    @Query(value = "select * from users where name=surname",nativeQuery = true)
-    List<User> findUsersByCust();
-    @Query(value = "select * from users where email like '%narxoz%' or email like '%list%' or email like '%ssss%' ",nativeQuery = true)
-    List<User> findUsersByCusts();
-    @Query(value = "select distinct on (name) * from users  ",nativeQuery = true)
-    List<User> findUsersByCus();
+    User findByUsername(String username);
+
+    /** Jpa Methods */
+
+    // find top 2 users where name starts with `name`
+    List<User> findTop2ByNameStartsWith(String name);
+
+    // find users by name and surname (?1, ?2)
+    List<User> findByNameAndSurname(String name, String surname);
+
+    // find users where email contains `email` sorted by surname (asc)
+    List<User> findFirstByEmailContainingOrderBySurname(String email);
+
+    /** Native Query */
+
+    // find users where name starts with `A` order by surname (asc)
+    @Query(value = "select * from users where name like 'A%' order by surname", nativeQuery = true)
+    List<User> findAllSorted();
+
+    // find users where id greater than `qid`
+    @Query(value = "select * from users where id > :qid", nativeQuery = true)
+    List<User> findByGreaterId(Long qid);
 
 
 

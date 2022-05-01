@@ -1,11 +1,11 @@
-package ospan.sale.controller;
+package ospan.sale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ospan.sale.User;
-import ospan.sale.repository.UserRepostitory;
+import ospan.sale.UserRepostitory;
 
 import java.util.List;
 
@@ -20,24 +20,24 @@ public class WebController {
             defaultValue="" ) String name, @RequestParam(name="surname" ,required = false,
             defaultValue="" ) String surname, Model model ){
         List <ospan.sale.User> users =repostitory.findAll();
-        if(!email.isEmpty()){
-          //users=repostitory.findByEmailNotContaining(email);
-            // users = repostitory.findByEmailContaining(email);
-          // users= repostitory.findByEmailStartsWith(email);
-        }
-        if(!name.isEmpty()){
-            users = repostitory.findByNameStartsWith(name);
-        }
-        if(!surname.isEmpty()){
-          users= repostitory.findBySurnameStartsWith(surname);
-        }
-
-      //  users=repostitory.findUsersByCust();
-    //    users=repostitory.findUsersByCustomQuery();
-     //   users=repostitory.findUsersByCustom();
-       //   users=repostitory.findAllByOrderByNameDesc();
-       // users=repostitory.findUsersByCusts();
-           users=repostitory.findUsersByCus();
+//        if(!email.isEmpty()){
+//          //users=repostitory.findByEmailNotContaining(email);
+//            // users = repostitory.findByEmailContaining(email);
+//          // users= repostitory.findByEmailStartsWith(email);
+//        }
+//        if(!name.isEmpty()){
+//            users = repostitory.findByNameStartsWith(name);
+//        }
+//        if(!surname.isEmpty()){
+//          users= repostitory.findBySurnameStartsWith(surname);
+//        }
+//
+//      //  users=repostitory.findUsersByCust();
+//    //    users=repostitory.findUsersByCustomQuery();
+//     //   users=repostitory.findUsersByCustom();
+//       //   users=repostitory.findAllByOrderByNameDesc();
+//       // users=repostitory.findUsersByCusts();
+//           users=repostitory.findUsersByCus();
 
         model.addAttribute("users", users);
         return "index";
@@ -51,9 +51,10 @@ public class WebController {
 
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") long id, ospan.sale.User user) {
-        updateUser(user);
-        return "redirect:/";
-    }
+
+             updateUser(user);
+             return "redirect:/";
+             }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id) {

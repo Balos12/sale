@@ -1,4 +1,4 @@
-package ospan.sale.repository;
+package ospan.sale;
 
 
 
